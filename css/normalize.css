@@ -304,7 +304,7 @@ Preloader Area CSS
           animation: loader-inner 1s cubic-bezier(0.42, 0.61, 0.58, 0.41) infinite;
 }
 
-.preloader .loader .indicator {
+/* .preloader .loader .indicator {
   position: absolute;
   right: 0;
   left: 0;
@@ -330,7 +330,7 @@ Preloader Area CSS
   stroke-dashoffset: 48;
   -webkit-animation: dash 1s linear infinite;
           animation: dash 1s linear infinite;
-}
+} */
 
 .preloader::before, .preloader::after {
   content: '';

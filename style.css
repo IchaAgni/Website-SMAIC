@@ -4407,3 +4407,19 @@ body{
 /*=========================
 	End Footer CSS
 ===========================*/
+
+iframe{
+	display: none;
+}
+
+/* .skiptranslate span{
+	display: none;
+} */
+
+#google_translate_element{
+	margin: 0px;
+}
+#google_translate_element select{
+	margin-top: 0.5rem;
+	height: 2rem;
+}

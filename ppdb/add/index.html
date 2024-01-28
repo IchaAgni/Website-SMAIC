@@ -187,13 +187,13 @@
                   <div id="progress-bar-container">
                     <ul>
                       <li class="step form_stepper step01 active">
-                        <div class="step-inner">Murid</div>
+                        <div class="step-inner">Data Diri</div>
                       </li>
                       <li class="step form_stepper step02">
                         <div class="step-inner">Orang Tua</div>
                       </li>
                       <li class="step form_stepper step03">
-                        <div class="step-inner">Data</div>
+                        <div class="step-inner">Berkas</div>
                       </li>
                     </ul>
 
@@ -275,7 +275,7 @@
                             <option value="kristen">Kristen</option>
                             <option value="hindu">Hindu</option>
                             <option value="budha">Budha</option>
-                            <option value="konghuchu">Bonghuchu</option>
+                            <option value="konghuchu">Konghuchu</option>
                           </select>
                         </div>
                         <div class="col-lg-12">
@@ -695,11 +695,13 @@
                             type="file"
                             class="form-control"
                             id="fc_kip"
-                            name="fc_kip" />
+                            name="fc_kip"
+                            required />
                         </div>
                         <div class="border w-100 my-3"></div>
                         <div class="alert alert-info mb-3" role="alert">
-                          Silahkan bayar biaya awal senilai Rp. xx.xxx.xxx ke nomor rekening xxxxxxxxxx 
+                          Silahkan bayar biaya awal senilai Rp. xx.xxx.xxx ke
+                          nomor rekening xxxxxxxxxx
                         </div>
                         <div class="col-lg-12">
                           <label for="bukti_bayar" class="form-label">
@@ -709,7 +711,8 @@
                             type="file"
                             class="form-control"
                             id="bukti_bayar"
-                            name="bukti_bayar" />
+                            name="bukti_bayar"
+                            required />
                         </div>
 
                         <div class="col-12 mt-3">
@@ -998,7 +1001,7 @@
           anak_ke: formData.get("anak_ke"),
         };
 
-        sessionStorage.setItem("student", JSON.stringify(data));
+        localStorage.setItem("student", JSON.stringify(data));
 
         //actions
         $(".step02").addClass("active");
@@ -1026,7 +1029,7 @@
           alm_provinsi_ortu: formData.get("alm_provinsi_ortu"),
         };
 
-        sessionStorage.setItem("parent", JSON.stringify(data));
+        localStorage.setItem("parent", JSON.stringify(data));
 
         //actions
         $(".step03").addClass("active");
@@ -1048,7 +1051,7 @@
           bukti_bayar: formData.get("bukti_bayar"),
         };
 
-        sessionStorage.setItem("file_data", JSON.stringify(data));
+        localStorage.setItem("file_data", JSON.stringify(data));
         localStorage.setItem("status", "true");
         Swal.fire("Terimakasih sudah mendaftar");
 

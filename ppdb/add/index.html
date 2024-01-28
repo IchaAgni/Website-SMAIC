@@ -630,6 +630,7 @@
                             class="form-control"
                             id="fc_nisn"
                             name="fc_nisn"
+                            accept=".pdf"
                             required />
                         </div>
                         <div class="col-lg-12">
@@ -641,6 +642,7 @@
                             class="form-control"
                             id="fc_ijazah"
                             name="fc_ijazah"
+                             accept=".pdf"
                             required />
                         </div>
                         <div class="col-lg-12">
@@ -652,6 +654,7 @@
                             class="form-control"
                             id="skl"
                             name="skl"
+                             accept=".pdf"
                             required />
                         </div>
                         <div class="col-lg-12">
@@ -663,6 +666,7 @@
                             class="form-control"
                             id="skb"
                             name="skb"
+                             accept=".pdf"
                             required />
                         </div>
                         <div class="col-lg-12">
@@ -674,6 +678,7 @@
                             class="form-control"
                             id="fc_akta"
                             name="fc_akta"
+                             accept=".pdf"
                             required />
                         </div>
                         <div class="col-lg-12">
@@ -685,6 +690,7 @@
                             class="form-control"
                             id="fc_kk"
                             name="fc_kk"
+                             accept=".pdf"
                             required />
                         </div>
                         <div class="col-lg-12">
@@ -695,8 +701,9 @@
                             type="file"
                             class="form-control"
                             id="fc_kip"
+                             accept=".pdf"
                             name="fc_kip"
-                            required />
+                             />
                         </div>
                         <div class="border w-100 my-3"></div>
                         <div class="alert alert-info mb-3" role="alert">
@@ -712,6 +719,7 @@
                             class="form-control"
                             id="bukti_bayar"
                             name="bukti_bayar"
+                            accept="image/*"
                             required />
                         </div>
 
@@ -969,9 +977,20 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
       $(document).ready(function () {
-        if (localStorage.getItem("status") === "true") {
+        if (localStorage.getItem("status") === "finished") {
           $("#formCard").addClass("d-none");
           $("#statusCard").removeClass("d-none").addClass("d-block");
+        } else if (localStorage.getItem("status") === "step_1_done") {
+          $(".step02").addClass("active");
+
+          $("#line-progress").css("width", "50%");
+          $(".parent").addClass("active").siblings().removeClass("active");
+        } else if (localStorage.getItem("status") === "step_2_done") {
+          $(".step02").addClass("active");
+          $(".step03").addClass("active");
+
+          $("#line-progress").css("width", "100%");
+          $(".file_data").addClass("active").siblings().removeClass("active");
         }
       });
       $("#form_student").submit(function (e) {
@@ -1002,6 +1021,7 @@
         };
 
         localStorage.setItem("student", JSON.stringify(data));
+        localStorage.setItem("status", "step_1_done");
 
         //actions
         $(".step02").addClass("active");
@@ -1030,6 +1050,7 @@
         };
 
         localStorage.setItem("parent", JSON.stringify(data));
+        localStorage.setItem("status", "step_2_done");
 
         //actions
         $(".step03").addClass("active");
@@ -1039,7 +1060,7 @@
       });
 
       $("#form_file_data").submit(function (e) {
-        e.preventDefault();
+        e.preventDefault()
         const formData = new FormData(e.target);
         const data = {
           fc_nisn: formData.get("fc_nisn"),
@@ -1052,7 +1073,7 @@
         };
 
         localStorage.setItem("file_data", JSON.stringify(data));
-        localStorage.setItem("status", "true");
+        localStorage.setItem("status", "finished");
         Swal.fire("Terimakasih sudah mendaftar");
 
         //actions

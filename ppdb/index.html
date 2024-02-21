@@ -186,10 +186,13 @@
               Cipasung! Penerimaan peserta didik baru tahun ini membuka pintu
               bagi petualangan pendidikan yang tak terbatas."
             </h6>
-
-            <a class="btn btn-primary text-white mt-3" href="/ppdb/add">
-              Daftar
-            </a>
+            <form action="POST" id="login">
+              <input type="hidden" name="email" value="user@email.com">
+              <input type="hidden" name="password" value="user123">
+              <button class="btn btn-primary text-white mt-3" type="submit">
+                Daftar
+              </button>
+            </form>
           </div>
           <div class="col-lg-4">
             <img src="/img/student.jpg" alt="" />
@@ -515,6 +518,27 @@
         //actions
         console.log(data);
       });
+
+      const daftar = document.getElementById('login');
+
+      daftar.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const data = new FormData(daftar);
+        
+        fetch('https://ppdb.smaicipasung.sch.id/api/auth/login', {
+          method: "POST",
+          body: data
+        }).then(async (response) => {
+          const dataResponse = await response.json();
+          if(dataResponse.status === false){
+            return console.log("Failed Login")
+          } else {
+            localStorage.setItem('token', dataResponse.data.auth.token);
+            window.location.replace('./add/index.html')
+          }
+        })
+      })
     </script>
   </body>
 </html>

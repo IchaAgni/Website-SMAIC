@@ -88,32 +88,33 @@ include "pondasi/kiri.php";
                         } else {
                     ?>
                         <form class="form" action="act_tmbh_berita.php" method="post" enctype="multipart/form-data">
-    <div class="box-body">
-        <div class="row">
-            <div class="col-md-12">
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-md-12">
 
-                <div class="form-group">
-                    <label>Foto</label>
-                    <input type="file" name="image" class="form-control" required>
-                </div>
+                                        <div class="form-group">
+                                            <label>Foto</label>
+                                            <input type="file" name="image" class="form-control" required>
+                                        </div>
 
-                <div class="form-group">
-                    <label>Judul</label>
-                    <input type="text" name="judul" class="form-control" required>
-                </div>
+                                        <div class="form-group">
+                                            <label>Judul</label>
+                                            <input type="text" name="judul" class="form-control" required>
+                                        </div>
 
-                <div class="form-group">
-                    <label>Tanggal</label>
-                    <input type="date" name="tgl" class="form-control" required>
-                </div>
+                                        <div class="form-group">
+                                            <label>Tanggal</label>
+                                            <input type="date" name="tgl" class="form-control" required>
+                                        </div>
 
-                <div class="form-group">
-                    <label>Detail</label>
-                    <textarea name="detail" class="form-control" rows="5" required></textarea>
-                </div>
-            </div>
-        </div>
-    </div>
+                                        <div class="form-group">
+                                            <label>Detail</label>
+                                            <textarea name="detail" class="form-control" rows="5" required></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <!-- </form> -->
     <!-- /.box-body -->
     <div class="box-footer">
         <button type="button" class="btn btn-danger btn-outline">

@@ -24,14 +24,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         if(empty($errors)){
            // Pastikan Anda menggunakan '/' di akhir jalur direktori
-           move_uploaded_file($file_tmp, "/admin/foto/berita/" . $file_name);
+           move_uploaded_file($file_tmp, "../foto/berita/" . $file_name);
 
             $judul = $_POST['judul'];
             $tgl = $_POST['tgl'];
             $detail = $_POST['detail'];
 
-            var_dump($file_name, $judul, $tgl, $detail);
-            die();
+            // var_dump($file_name, $judul, $tgl, $detail);
+            // die();
 
             // Query untuk menyimpan data baru ke dalam database
             $query = "INSERT INTO berita (foto, judul, tgl, detail) VALUES ('$file_name', '$judul', '$tgl', '$detail')";
@@ -39,10 +39,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Eksekusi query
             if(mysqli_query($conn, $query)) {
                 // Data berhasil disimpan, arahkan ke Berita.php
-                header("Location: Berita.php");
+                  header("Location: Berita.php");
                 exit(); // Pastikan kode berhenti di sini setelah header location
             } else {
-                echo "ERROR: Gagal mengeksekusi query: $query. " . mysqli_error($conn);
+                  echo "ERROR: Gagal mengeksekusi query: $query. " . mysqli_error($conn);
             }
         } else {
             print_r($errors);

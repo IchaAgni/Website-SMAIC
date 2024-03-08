@@ -9,7 +9,8 @@
     <meta name="copyright" content="" />
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
 
     <!-- Title -->
     <title>Fasilitas - SMAI Cipasung</title>
@@ -20,7 +21,8 @@
     <!-- Google Fonts -->
     <link
       href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
-      rel="stylesheet" />
+      rel="stylesheet"
+    />
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" />
@@ -45,9 +47,14 @@
     <link rel="stylesheet" href="css/normalize.css" />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="css/responsive.css" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+      defer
+    ></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
-  <body>
-	<div class="preloader">
+  <body x-data="ekskul" x-init="getEkskul()">
+    <div class="preloader">
       <div class="loader">
         <div class="loader-outter"></div>
         <div class="loader-inner"></div>
@@ -57,7 +64,8 @@
             <polyline id="back" points="1 6 4 6 6 11 10 1 12 6 15 6"></polyline>
             <polyline
               id="front"
-              points="1 6 4 6 6 11 10 1 12 6 15 6"></polyline>
+              points="1 6 4 6 6 11 10 1 12 6 15 6"
+            ></polyline>
           </svg>
         </div>
       </div>
@@ -101,7 +109,8 @@
                     <img
                       style="height: 3.5rem"
                       src="/img/smailogo.webp"
-                      alt="#" />
+                      alt="#"
+                    />
                   </a>
                   <h5 style="font-weight: bold">SMAI CIPASUNG</h5>
                 </div>
@@ -151,7 +160,8 @@
               <div class="col-lg-1 col-12 d-none d-md-block">
                 <div
                   id="google_translate_element"
-                  class="google_translate_element"></div>
+                  class="google_translate_element"
+                ></div>
               </div>
             </div>
           </div>
@@ -191,57 +201,19 @@
                   <!-- accordion -->
                   <div class="wrapper">
                     <!-- Accordion Heading One -->
-                    <div class="parent-tab">
-                      <input type="radio" name="tab" id="tab-1" checked />
-                      <label for="tab-1">
-                        <span>Paskibra</span>
-                        <div class="icon"><i class="fas fa-plus"></i></div>
-                      </label>
-                      <div class="content">
-                        <img src="img/paskibra.jpg" alt="" />
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipisicing
-                          thelit. Quam, repellendus facere, id porro magnam
-                          blanditiiss quoteos dolores ratione quidem ipsam esse
-                          quos pariatur, repellat obcaecati!
-                        </p>
+                    <template x-for="value in ekstraData">
+                      <div class="parent-tab">
+                        <input type="radio" name="tab" id="tab-1" checked />
+                        <label for="tab-1">
+                          <span x-text="value.judul"></span>
+                          <div class="icon"><i class="fas fa-plus"></i></div>
+                        </label>
+                        <div class="content">
+                          <img :src="value.foto" alt="" />
+                          <p x-text="value.deskripsi"></p>
+                        </div>
                       </div>
-                    </div>
-
-                    <!-- Accordion Heading Two -->
-                    <div class="parent-tab">
-                      <input type="radio" name="tab" id="tab-2" />
-                      <label for="tab-2">
-                        <span>Pramuka</span>
-                        <div class="icon"><i class="fas fa-plus"></i></div>
-                      </label>
-                      <div class="content">
-                        <img src="img/pramuka.jpg" alt="" />
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipisicing
-                          thelit. Quam, repellendus facere, id porro magnam
-                          blanditiiss quoteos dolores ratione quidem ipsam esse
-                          quos pariatur, repellat obcaecati!
-                        </p>
-                      </div>
-                    </div>
-                    <!-- accordion heading three -->
-                    <div class="parent-tab">
-                      <input type="radio" name="tab" id="tab-3" />
-                      <label for="tab-3">
-                        <span>Futsal</span>
-                        <div class="icon"><i class="fas fa-plus"></i></div>
-                      </label>
-                      <div class="content">
-                        <img src="img/futsal.jpg" alt="" />
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipisicing
-                          thelit. Quam, repellendus facere, id porro magnam
-                          blanditiiss quoteos dolores ratione quidem ipsam esse
-                          quos pariatur, repellat obcaecati!
-                        </p>
-                      </div>
-                    </div>
+                    </template>
 
                     <!-- Accordion Heading Four -->
                     <div class="parent-tab">
@@ -525,7 +497,8 @@
                   action="mail/mail.php"
                   method="get"
                   target="_blank"
-                  class="newsletter-inner">
+                  class="newsletter-inner"
+                >
                   <input
                     name="email"
                     placeholder="Email Address"
@@ -533,7 +506,8 @@
                     onfocus="this.placeholder = ''"
                     onblur="this.placeholder = 'Your email address'"
                     required=""
-                    type="email" />
+                    type="email"
+                  />
                   <button class="button">
                     <i class="icofont icofont-paper-plane"></i>
                   </button>
@@ -604,4 +578,32 @@
     <!-- Main JS -->
     <script src="js/main.js"></script>
   </body>
+  <script>
+    document.addEventListener("alpine:init", () => {
+      Alpine.data("ekskul", () => ({
+        ekstraData: [],
+        resData: [],
+        getEkskul() {
+          fetch("https://ppdb.smaicipasung.sch.id/api/cms/get-list-ekskul", {
+            method: "GET",
+            headers: {
+              accept: "application/json",
+            },
+          })
+            .then(async (res) => {
+              this.resData = await res.json();
+              this.ekstraData = this.resData.data;
+              console.log(this.ekstraData);
+            })
+            .catch((err) => {
+              Swal.fire({
+                icon: "error",
+                title: "Error!",
+                text: "Internal Server Error! Please Try Again Later.",
+              });
+            });
+        },
+      }));
+    });
+  </script>
 </html>

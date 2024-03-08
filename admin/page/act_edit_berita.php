@@ -45,11 +45,11 @@ if(isset($_FILES['image'])){
         $fotoLama = $dataFoto['foto'];
 
         if (!empty($fotoLama)) {
-            unlink("/admin/foto/berita" . $fotoLama); // Hapus foto lama dari direktori
+            unlink("/admin/foto/berita/" . $fotoLama); // Hapus foto lama dari direktori
         }
 
         // Pindahkan file yang diunggah ke direktori yang ditentukan
-        move_uploaded_file($file_tmp, "/admin/foto/berita" . $file_name);
+        move_uploaded_file($file_tmp, "/admin/foto/berita/" . $file_name);
 
         // Perbarui data berita dengan nama file baru jika ada file yang diunggah
         $queryUpdate = "UPDATE berita SET judul = '$judulBerita', tgl = '$tanggalBerita', foto = '$file_name', detail = '$detailBerita' WHERE id = $idBerita";

@@ -44,7 +44,7 @@ include "pondasi/kiri.php";
                             $sql = mysqli_query($conn, "SELECT * FROM berita where id='$id'");
                             while ($b = mysqli_fetch_assoc($sql)) {
                     ?>
-                    <form class="form" action="act_edit_berita.php" method="post" enctype="multipart/form-data">
+                    <form class="form" action="act_edit_berita.php" method="put" enctype="multipart/form-data">
                         <div class="box-body">
 
                             <div class="row">
@@ -87,7 +87,7 @@ include "pondasi/kiri.php";
                               }
                         } else {
                     ?>
-                        <form class="form" action="act_tmbh_berita.php" method="POST" enctype="multipart/form-data">
+                        <form class="form" action="act_tmbh_berita.php" method="post" enctype="multipart/form-data">
                             <div class="box-body">
                                 <div class="row">
                                     <div class="col-md-12">

@@ -6,12 +6,6 @@ $b = mysqli_fetch_assoc($sql);
 $data_guru = mysqli_query($conn, "SELECT * FROM guru");
 $jumlah_guru = mysqli_num_rows($data_guru);
 
-$c = mysqli_query($conn, "SELECT * FROM proli");
-$d = mysqli_fetch_assoc($c);
-
-$data_proli = mysqli_query($conn, "SELECT * FROM proli");
-$jumlah_proli = mysqli_num_rows($data_proli);
-
 $e = mysqli_query($conn, "SELECT * FROM ppdb");
 $f = mysqli_fetch_assoc($e);
 
@@ -30,11 +24,6 @@ $j = mysqli_fetch_assoc($i);
 $data_prestasi = mysqli_query($conn, "SELECT * FROM prestasi");
 $jumlah_prestasi = mysqli_num_rows($data_prestasi);
 
-$k = mysqli_query($conn, "SELECT * FROM agenda");
-$l = mysqli_fetch_assoc($k);
-
-$data_agenda = mysqli_query($conn, "SELECT * FROM agenda");
-$jumlah_agenda = mysqli_num_rows($data_agenda);
 ?>
 
 <div class="content-wrapper">

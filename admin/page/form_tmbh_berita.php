@@ -87,7 +87,7 @@ include "pondasi/kiri.php";
                               }
                         } else {
                     ?>
-                        <form class="form" action="act_tmbh_berita.php" method="post" enctype="multipart/form-data">
+                        <form class="form" action="act_tmbh_berita.php" method="POST" enctype="multipart/form-data">
                             <div class="box-body">
                                 <div class="row">
                                     <div class="col-md-12">

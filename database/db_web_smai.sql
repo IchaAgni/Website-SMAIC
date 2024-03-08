@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Waktu pembuatan: 04 Feb 2024 pada 14.42
--- Versi server: 10.4.28-MariaDB
--- Versi PHP: 8.2.4
+-- Host: localhost
+-- Waktu pembuatan: 08 Mar 2024 pada 17.38
+-- Versi server: 10.4.27-MariaDB
+-- Versi PHP: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -59,6 +59,20 @@ CREATE TABLE `agenda` (
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `berita`
+--
+
+CREATE TABLE `berita` (
+  `id` int(12) NOT NULL,
+  `foto` varchar(1000) NOT NULL,
+  `judul` varchar(100) NOT NULL,
+  `tgl` date NOT NULL,
+  `detail` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `fasilitas`
 --
 
@@ -74,6 +88,7 @@ CREATE TABLE `fasilitas` (
 --
 
 INSERT INTO `fasilitas` (`id`, `judul`, `foto`, `deskripsi`) VALUES
+(1, 'Perpustakaan', 'perpustakaan.jpg', 'Perpustakaan adalah suatu tempat atau fasilitas yang didedikasikan untuk menyimpan, mengelola, dan memberikan akses kepada berbagai jenis bahan bacaan, seperti buku, majalah, surat kabar, dan sumber informasi lainnya. Tujuan utama perpustakaan adalah menyediakan sumber daya untuk mendukung pendidikan, penelitian, dan pemenuhan kebutuhan informasi masyarakat.'),
 (1, 'Perpustakaan', 'perpustakaan.jpg', 'Perpustakaan adalah suatu tempat atau fasilitas yang didedikasikan untuk menyimpan, mengelola, dan memberikan akses kepada berbagai jenis bahan bacaan, seperti buku, majalah, surat kabar, dan sumber informasi lainnya. Tujuan utama perpustakaan adalah menyediakan sumber daya untuk mendukung pendidikan, penelitian, dan pemenuhan kebutuhan informasi masyarakat.');
 
 -- --------------------------------------------------------
@@ -109,6 +124,32 @@ CREATE TABLE `guru` (
   `email` varchar(100) NOT NULL,
   `foto` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `komentar`
+--
+
+CREATE TABLE `komentar` (
+  `id` int(11) NOT NULL,
+  `nama` varchar(255) DEFAULT NULL,
+  `komentar` text DEFAULT NULL,
+  `status` enum('aktif','nonaktif') DEFAULT 'aktif',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `komentar`
+--
+
+INSERT INTO `komentar` (`id`, `nama`, `komentar`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'John Doe', 'Pelayanan sangat memuaskan!', 'aktif', '2024-02-21 16:19:47', '2024-02-21 16:19:47'),
+(2, 'Jane Smith', 'Sangat puas dengan produknya.', 'aktif', '2024-02-21 16:19:47', '2024-02-21 16:19:47'),
+(3, 'Alice Johnson', 'Perlu peningkatan dalam hal pelayanan.', 'nonaktif', '2024-02-21 16:19:47', '2024-02-21 16:19:47'),
+(4, 'Bob Brown', 'Produknya bagus tapi harganya mahal.', 'aktif', '2024-02-21 16:19:47', '2024-02-21 16:19:47'),
+(5, 'Carol Garcia', 'Sangat tidak puas dengan pelayanan.', 'nonaktif', '2024-02-21 16:19:47', '2024-02-21 16:19:47');
 
 -- --------------------------------------------------------
 
@@ -169,6 +210,7 @@ CREATE TABLE `profil` (
 --
 
 INSERT INTO `profil` (`id`, `judul`, `foto`, `profil`) VALUES
+(5, 'SMA ISLAM CIPASUNG', 'WhatsApp Image 2024-01-20 at 5.29.14 AM.jpeg', 'dsdseewrwtrt'),
 (7, 'SMA ISLAM CIPASUNG', 'background.jpg', 'ghdsgddgfysgfhgffggyrygjbvncnmvnvjfhjfhdh');
 
 -- --------------------------------------------------------
@@ -198,6 +240,8 @@ CREATE TABLE `struktur` (
 --
 
 INSERT INTO `struktur` (`id`, `foto`) VALUES
+(1, 'struktur.jpg'),
+(1, 'struktur.jpg'),
 (1, 'struktur.jpg');
 
 -- --------------------------------------------------------
@@ -250,9 +294,9 @@ ALTER TABLE `agenda`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `fasilitas`
+-- Indeks untuk tabel `berita`
 --
-ALTER TABLE `fasilitas`
+ALTER TABLE `berita`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -265,6 +309,12 @@ ALTER TABLE `galeri`
 -- Indeks untuk tabel `guru`
 --
 ALTER TABLE `guru`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `komentar`
+--
+ALTER TABLE `komentar`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -289,12 +339,6 @@ ALTER TABLE `profil`
 -- Indeks untuk tabel `proli`
 --
 ALTER TABLE `proli`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indeks untuk tabel `struktur`
---
-ALTER TABLE `struktur`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -326,10 +370,10 @@ ALTER TABLE `agenda`
   MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `fasilitas`
+-- AUTO_INCREMENT untuk tabel `berita`
 --
-ALTER TABLE `fasilitas`
-  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `berita`
+  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `galeri`
@@ -342,6 +386,12 @@ ALTER TABLE `galeri`
 --
 ALTER TABLE `guru`
   MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
+-- AUTO_INCREMENT untuk tabel `komentar`
+--
+ALTER TABLE `komentar`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `ppdb`
@@ -366,12 +416,6 @@ ALTER TABLE `profil`
 --
 ALTER TABLE `proli`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT untuk tabel `struktur`
---
-ALTER TABLE `struktur`
-  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `testi`

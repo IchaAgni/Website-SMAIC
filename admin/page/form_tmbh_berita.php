@@ -44,7 +44,7 @@ include "pondasi/kiri.php";
                             $sql = mysqli_query($conn, "SELECT * FROM berita where id='$id'");
                             while ($b = mysqli_fetch_assoc($sql)) {
                     ?>
-                    <form class="form" action="act_edit_berita.php" method="post" enctype="multipart/form-data">
+                    <form class="form" action="act_edit_berita.php" method="put" enctype="multipart/form-data">
                         <div class="box-body">
 
                             <div class="row">
@@ -87,44 +87,47 @@ include "pondasi/kiri.php";
                               }
                         } else {
                     ?>
-                            <form class="form" action="act_tmbh_berita.php" method="post" enctype="multipart/form-data">
-                        <div class="box-body">
+                        <form class="form" action="act_tmbh_berita.php" method="post" enctype="multipart/form-data">
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-md-12">
 
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Judul</label>
-                                        <input type="text" name="judul" class="form-control" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Foto</label>
-                                        <input type="file" name="image" class="form-control" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Tanggal</label>
-                                        <input type="date" name="tgl" class="form-control" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Detail</label>
-                                        <textarea name="detail" class="form-control" rows="5"></textarea>
-                                    </div>
+                                        <div class="form-group">
+                                            <label>Foto</label>
+                                            <input type="file" name="image" class="form-control" required>
+                                        </div>
 
+                                        <div class="form-group">
+                                            <label>Judul</label>
+                                            <input type="text" name="judul" class="form-control" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Tanggal</label>
+                                            <input type="date" name="tgl" class="form-control" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Detail</label>
+                                            <textarea name="detail" class="form-control" rows="5" required></textarea>
+                                        </div>
+                                    </div>
                                 </div>
-
                             </div>
+                        <!-- </form> -->
+    <!-- /.box-body -->
+    <div class="box-footer">
+        <button type="button" class="btn btn-danger btn-outline">
+            <a href="berita.php"> <i class="ti-arrow-alt"></i> Batal
+            </a>
+        </button>
+        &nbsp;&nbsp;
+        <button type="submit" name="submit" class="btn btn-primary btn-outline">
+            <i class="ti-save-alt"></i> Simpan
+        </button>
+    </div>
+</form>
 
-                        </div>
-                        <!-- /.box-body -->
-                        <div class="box-footer">
-                            <button type="button" class="btn btn-danger btn-outline">
-                                <a href="berita.php"> <i class="ti-arrow-alt"></i> Batal
-                                </a></button>
-                            &nbsp;&nbsp;
-                            <button type="submit" class="btn btn-primary btn-outline">
-                                <i class="ti-save-alt"></i> Simpan
-                            </button>
-                        </div>
-                    </form>
                     <?php
                         }
                     ?>

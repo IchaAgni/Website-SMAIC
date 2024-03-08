@@ -8,49 +8,62 @@ if (!isset($_SESSION['admin'])) {
 }
 
 require_once("../config/koneksi.php");
-$query = mysqli_query($conn, "SELECT * FROM admin WHERE username='$username'");
-$hasil = mysqli_fetch_array($query);
 
-$id = $_POST['id'];
-$a = $_POST['judul'];
-$b = $_POST['tgl'];
-$c = $_POST['detail'];
+// Perbarui data admin
+$queryAdmin = mysqli_query($conn, "SELECT * FROM admin WHERE username='$username'");
+$dataAdmin = mysqli_fetch_array($queryAdmin);
 
-// Mengecek apakah ada file yang diunggah
+$idBerita = $_POST['id'];
+$judulBerita = $_POST['judul'];
+$tanggalBerita = $_POST['tgl'];
+$detailBerita = $_POST['detail'];
+
+// Perbarui berita jika ada file yang diunggah
 if(isset($_FILES['image'])){
-    $errors= array();
+    $errors = array();
     $file_name = $_FILES['image']['name'];
-    $file_size =$_FILES['image']['size'];
-    $file_tmp =$_FILES['image']['tmp_name'];
-    $file_type=$_FILES['image']['type'];
-    $file_ext=strtolower(end(explode('.',$_FILES['image']['name'])));
+    $file_size = $_FILES['image']['size'];
+    $file_tmp = $_FILES['image']['tmp_name'];
+    $file_type = $_FILES['image']['type'];
+    $file_ext = strtolower(end(explode('.', $file_name)));
     
-    $extensions= array("jpeg","jpg","png");
+    $allowed_extensions = array("jpeg", "jpg", "png");
     
-    if(in_array($file_ext,$extensions)=== false){
-       $errors[]="extension not allowed, plesase choose a JPEG or PNG file.";
+    if(!in_array($file_ext, $allowed_extensions)){
+        $errors[] = "Extension not allowed, please choose a JPEG or PNG file.";
     }
     
     if($file_size > 2097152){
-       $errors[]='File size must be excately 2 MB';
+        $errors[] = 'File size must be exactly 2 MB';
     }
     
-    if(empty($errors)==true){
-       move_uploaded_file($file_tmp,"../foto/berita/".$file_name);
-       echo "Success";
-    }else{
-       print_r($errors);
-    }
-    // Hanya melakukan update gambar jika tidak ada error
     if(empty($errors)){
-        $sql = mysqli_query($conn, "UPDATE berita SET judul = '$a', tgl = '$b', foto = '$file_name', detail = '$c'  WHERE id=$id");
+        // Hapus foto lama sebelum mengganti dengan yang baru
+        $queryHapusFoto = "SELECT foto FROM berita WHERE id = $idBerita";
+        $resultHapusFoto = mysqli_query($conn, $queryHapusFoto);
+        $dataFoto = mysqli_fetch_assoc($resultHapusFoto);
+        $fotoLama = $dataFoto['foto'];
+
+        if (!empty($fotoLama)) {
+            unlink("/admin/foto/berita/" . $fotoLama); // Hapus foto lama dari direktori
+        }
+
+        // Pindahkan file yang diunggah ke direktori yang ditentukan
+        move_uploaded_file($file_tmp, "/admin/foto/berita/" . $file_name);
+
+        // Perbarui data berita dengan nama file baru jika ada file yang diunggah
+        $queryUpdate = "UPDATE berita SET judul = '$judulBerita', tgl = '$tanggalBerita', foto = '$file_name', detail = '$detailBerita' WHERE id = $idBerita";
+        $sql = mysqli_query($conn, $queryUpdate);
     } else {
-        $sql = mysqli_query($conn, "UPDATE berita SET judul = '$a', tgl = '$b', detail = '$c'  WHERE id=$id");
+        print_r($errors);
     }
 } else {
-    // Jika tidak ada file diunggah, gunakan gambar sebelumnya
-    $sql = mysqli_query($conn, "UPDATE berita SET judul = '$a', tgl = '$b', detail = '$c'  WHERE id=$id");
+    // Jika tidak ada file yang diunggah, perbarui data berita tanpa mengubah gambar
+    $queryUpdate = "UPDATE berita SET judul = '$judulBerita', tgl = '$tanggalBerita', detail = '$detailBerita' WHERE id = $idBerita";
+    $sql = mysqli_query($conn, $queryUpdate);
 }
 
-header('location:berita.php');
+// Redirect ke halaman form tambah berita setelah perubahan
+header('location: Berita.php');
+exit;
 ?>
